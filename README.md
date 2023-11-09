@@ -5,6 +5,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
+nvm use 18 // IMPORTANT: There are breaking changes from node 16 to 18, wrong nvm version won't work. 
+
 npm run dev
 # or
 yarn dev
