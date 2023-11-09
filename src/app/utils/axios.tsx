@@ -9,7 +9,14 @@ const instance = axios.create({
 // Add an interceptor to handle requests and responses
 instance.interceptors.request.use(
   (config) => {
-    // You can modify the request config here (e.g., add headers)
+    // Check if a JWT token exists in localStorage
+    const token = localStorage.getItem("jwt");
+
+    // If a token exists, add it to the request headers
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+
     return config;
   },
   (error) => {
@@ -23,8 +30,17 @@ instance.interceptors.response.use(
     return response;
   },
   (error: AxiosError) => {
+    if (error?.response?.status === 401) {
+      localStorage.removeItem("jwt");
+      window.location.href = "/";
+      alert("You have been signed out, please sign in again");
+      return Promise.reject(error);
+    }
+
+    // console.log(JSON.stringify());
     const response_data = error.response?.data as any;
     alert(response_data.message);
+    console.error(response_data);
     // You can handle errors here (e.g., show error messages)
     return Promise.reject(error);
   }

@@ -1,10 +1,19 @@
 "use client";
 import { useRouter } from "next/navigation";
+import getRequest from "../hooks/getRequest";
+import { useEffect, useState } from "react";
 
 export default function Profile() {
   const router = useRouter();
+  const [data, setData] = useState<any>({});
+
+  useEffect(() => {
+    // getRequest("/user/test", {}).then((response) => {
+    //   setData(response?.data);
+    // });
+  }, []);
   return (
-    <div className="flex flex-col w-full fixed mt-24">
+    <div className="flex flex-col w-full mt-8">
       <div className="p-16">
         <div className="p-8 bg-white shadow mt-24">
           {" "}
@@ -82,6 +91,7 @@ export default function Profile() {
               Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
               and records all of his own music, giving it a warm, intimate feel
               with a solid groove structure. An artist of considerable range.
+              {JSON.stringify(data)}
             </p>{" "}
             <button className="text-indigo-500 py-2 px-4  font-medium mt-4">
               {" "}
